@@ -79,9 +79,10 @@ if (!isset($_SESSION["username"])) {
         }
 
         .main {
-            margin-left: 200%;
+            margin-top: 10%;
+            margin-left: 20%;
             padding: 0 1%;
-            width: 100%;
+            width: 80%;
         }
 
     </style>
@@ -90,19 +91,34 @@ if (!isset($_SESSION["username"])) {
 <body>
     <div class="sidepanel">
         <ul>
-            <li><a class="hover-underline-animation" href="dashboard.php">DASHBOARD</li>
-            <li><a class="hover-underline-animation" href="order.php">ORDER</li>
-            <li><a class="hover-underline-animation" href="orderHistory.php">ORDER HISTORY</li>
-            <li><a class="hover-underline-animation" href="current.php">CURRENT INVENTORY</li>
-            <li><a class="hover-underline-animation" href="add.php">ADD INVENTORY</li>
-            <li><a class="hover-underline-animation" href="remove.php">REMOVE INVENTORY</li>
-            <li><a class="hover-underline-animation" href="adjust.php">ADJUST INVENTORY</li>
-            <li><a class="hover-underline-animation" href="logout.php">LOG OUT</li>
+            <li><a class="hover-underline-animation" href="dashboard.php">DASHBOARD</a></li>
+            <li><a class="hover-underline-animation" href="order.php">ORDER</a></li>
+            <li><a class="hover-underline-animation" href="orderHistory.php">ORDER HISTORY</a></li>
+            <li><a class="hover-underline-animation" href="current.php">CURRENT INVENTORY</a></li>
+            <li><a class="hover-underline-animation" href="add.php">ADD INVENTORY</a></li>
+            <li><a class="hover-underline-animation" href="remove.php">REMOVE INVENTORY</a></li>
+            <li><a class="hover-underline-animation" href="adjust.php">ADJUST INVENTORY</a></li>
+            <li><a class="hover-underline-animation" href="logout.php">LOG OUT</a></li>
         </ul>
     </div>
 
     <div class="main">
-        <h1>DASHBOARD</h1>
+        <h1>INVENTORY OVERVIEW</h1>
+
+        <div class="grid-container">
+            <div class="grid-item">
+                <p>Stock Level</p>
+            </div>
+
+            <div class="grid-item">
+                <p>Current Product Count</p>
+            </div>
+
+            <div class="grid-item">
+                <p>Low on Stock</p>
+            </div>
+        </div>
+
     </div>
     
 </body>
