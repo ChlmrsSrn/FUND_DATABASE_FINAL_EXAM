@@ -43,7 +43,7 @@ if (!isset($_SESSION["username"])) {
         }
 
         .sidepanel li{
-            margin-top: 5%;
+            margin-top: 10%;
         }
 
         .sidepanel a{
@@ -79,7 +79,7 @@ if (!isset($_SESSION["username"])) {
         }
 
         .main {
-            margin-top: 10%;
+            margin-top: 2%;
             margin-left: 20%;
             padding: 0 1%;
             width: 80%;
@@ -104,6 +104,7 @@ if (!isset($_SESSION["username"])) {
 
     <div class="main">
         <h1>ADJUST INVENTORY</h1>
+        <hr />
     </div>
     
 </body>

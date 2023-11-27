@@ -9,13 +9,6 @@
     <style>
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&display=swap');
 
-/* CSS HEX 
---night: #0D1312ff;
---gunmetal: #122023ff;
---gunmetal-2: #1E2F36ff;
---cadet-gray: #8398A3ff;
---paynes-gray: #556B77ff;
-*/
 
 *{
 box-sizing: border-box;

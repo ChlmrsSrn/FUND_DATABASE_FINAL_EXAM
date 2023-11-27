@@ -12,6 +12,10 @@ if (!isset($_SESSION["username"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="icon" type="x-icon/png" href="" />
     <title>Inventory</title>
 
@@ -43,7 +47,7 @@ if (!isset($_SESSION["username"])) {
         }
 
         .sidepanel li{
-            margin-top: 5%;
+            margin-top: 10%;
         }
 
         .sidepanel a{
@@ -79,10 +83,52 @@ if (!isset($_SESSION["username"])) {
         }
 
         .main {
-            margin-top: 10%;
+            margin-top: 2%;
             margin-left: 20%;
             padding: 0 1%;
             width: 80%;
+        }
+
+        .grid-container{
+            display: grid;
+            grid-template-columns: 40% 40%;
+            column-gap: 3%;
+            row-gap: 7%;
+            margin-top: 3%;
+        }
+
+        .grid-item{
+            border: 3px solid #303030;
+            border-radius: 10px;
+            height: 15em;
+            padding: 2%;
+        }
+        
+        .grid-item p{
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+
+        .grid-item:nth-of-type(1){
+            background-color: #4285F4;
+        }
+
+        .grid-item:nth-of-type(2){
+            background-color: #34A853;   
+        }
+        
+        .grid-item:nth-of-type(3){
+            background-color: #FBB305;   
+        }
+
+        .grid-item:nth-of-type(4){
+            background-color: #EA4335;   
+        }
+
+        .material-symbols-outlined{
+            font-size: 8em;
+            position: relative;
+            left: 65%;
         }
 
     </style>
@@ -104,18 +150,36 @@ if (!isset($_SESSION["username"])) {
 
     <div class="main">
         <h1>INVENTORY OVERVIEW</h1>
+        <hr />
 
         <div class="grid-container">
             <div class="grid-item">
-                <p>Stock Level</p>
+                <p>STOCK LEVEL</p>
+
+                <div class="background-icon">
+                    <span class="material-symbols-outlined">inventory</span>
+                </div>
             </div>
 
             <div class="grid-item">
-                <p>Current Product Count</p>
+                <p>CURRENT PRODUCT COUNT</p>
+                <div class="background-icon">
+                    <span class="material-symbols-outlined">inventory_2</span>
+                </div>
             </div>
 
             <div class="grid-item">
-                <p>Low on Stock</p>
+                <p>LOW ON STOCK</p>
+                <div class="background-icon">
+                    <span class="material-symbols-outlined">disabled_by_default</span>
+                </div>
+            </div>
+
+            <div class="grid-item">
+                <p>COMPLETED ORDERS</p>
+                <div class="background-icon">
+                    <span class="material-symbols-outlined">fact_check</span>
+                </div>
             </div>
         </div>
 

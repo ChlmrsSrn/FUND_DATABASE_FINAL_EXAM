@@ -43,7 +43,7 @@ if (!isset($_SESSION["username"])) {
         }
 
         .sidepanel li{
-            margin-top: 5%;
+            margin-top: 10%;
         }
 
         .sidepanel a{
@@ -85,6 +85,11 @@ if (!isset($_SESSION["username"])) {
             width: 80%;
         }
 
+        .order-card{
+            margin-top: 3%;
+            margin-left: 30%;
+        }
+
         form{
             padding: 2%;
             width: 60%;
@@ -109,6 +114,30 @@ if (!isset($_SESSION["username"])) {
             margin: 0 auto;
         }
 
+        .btn{
+            text-decoration: none;
+            width: 100%;
+            background-color: black;
+            color: black;
+            margin: 1% auto;
+            padding: 2%;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            border: .1em solid black;
+
+            background: linear-gradient(to right, #027373, #04BFAD, white 50%);
+            background-size: 200% 100%;
+            background-position: right bottom;
+            transition: all .3s ease-out;
+        }
+
+        .btn:hover {
+            background-position: left bottom;
+            color: white;
+        }
         
     </style>
 
@@ -129,7 +158,8 @@ if (!isset($_SESSION["username"])) {
 
     <div class="main">
         <h1>ORDER</h1>
-
+        <hr />
+        
         <div class="order-card">
 
             <form action="order.php" method="POST">
@@ -157,7 +187,7 @@ if (!isset($_SESSION["username"])) {
                     </tr>
                 </table>
 
-                <button type="button" class="add-item-button" onclick="addRow()">Add Product</button>
+                <button type="button" class="add-item-button btn" onclick="addRow()">Add Product</button>
 
                 <label>Mode of Payment</label>
                 <select name="mop">
@@ -181,6 +211,9 @@ if (!isset($_SESSION["username"])) {
                 
                 <label>Remarks</label>
                 <textarea name="remarks"></textarea>
+
+                <div class="btn">REVIEW ORDER</div>
+                <button class="btn" value="Submit" name="submit">SUBMIT</button>
 
             </form>
 
