@@ -167,11 +167,14 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                     <span class="material-symbols-outlined">inventory</span>
 
                     <?php
-                        $sql = "SELECT COUNT(PRODUCTID) FROM INVENTORY;";
+                        $sql = "SELECT SUM(stock_quantity) AS total_stock FROM INVENTORY;";
 
                         $result = mysqli_query($conn, $sql);
-
                         
+                        $row = mysqli_fetch_assoc($result);
+                        $stockQuantity = $row['total_stock'];
+                        
+                        echo "<p>" .$stockQuantity . "</p>";
                     ?>
                     
                 </div>
@@ -181,6 +184,12 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                 <p>CURRENT PRODUCT COUNT</p>
                 <div class="background-icon">
                     <span class="material-symbols-outlined">inventory_2</span>
+                    <?php
+                        $sql = "SELECT COUNT(PRODUCTID) FROM INVENTORY;";
+                        $result = mysqli_query($conn, $sql);
+                        $row = mysqli_fetch_assoc($result);
+                        echo "<p>" . $row['COUNT(PRODUCTID)'] . "</p>";
+                    ?>
                 </div>
             </div>
 
@@ -188,6 +197,14 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                 <p>LOW ON STOCK</p>
                 <div class="background-icon">
                     <span class="material-symbols-outlined">disabled_by_default</span>
+                    <?php
+                        $lowStockCount = 10;
+                        $sql = "SELECT productName, stock_quantity FROM INVENTORY WHERE stock_quantity < $lowStockCount;";
+                        $result = mysqli_query($conn, $sql);
+                        while ($row = @mysqli_fetch_assoc($result)) {
+                            echo "<p>" . $row['productName'] . ", Stock: " . $row['stock_quantity'] . "</p>";
+                        } 
+                    ?>
                 </div>
             </div>
 
@@ -195,8 +212,16 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                 <p>COMPLETED ORDERS</p>
                 <div class="background-icon">
                     <span class="material-symbols-outlined">fact_check</span>
+                    <?php
+                        $sql = "SELECT COUNT(ORDERID) FROM ORDER_HISTORY;";
+                        $result = mysqli_query($conn, $sql);
+                        $row = mysqli_fetch_assoc($result);
+                        echo "<p>" . $row['COUNT(ORDERID)'] . "</p>";
+                    ?>
+
                 </div>
             </div>
+
         </div>
 
     </div>
