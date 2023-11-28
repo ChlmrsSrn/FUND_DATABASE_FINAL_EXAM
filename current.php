@@ -137,7 +137,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
         <?php
             if (isset($_POST['search-query'])) {
                 $searchQuery = mysqli_real_escape_string($conn, $_POST['search-query']);
-                $query = "SELECT * FROM INVENTORY WHERE productName LIKE '%$searchQuery%';";
+                $query = "SELECT * FROM INVENTORY WHERE productName OR category OR brand LIKE '%$searchQuery%';";
             } else {
                 $query = 'SELECT * FROM INVENTORY;';
             }
