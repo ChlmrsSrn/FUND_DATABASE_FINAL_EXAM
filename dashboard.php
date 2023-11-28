@@ -167,7 +167,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                     <span class="material-symbols-outlined">inventory</span>
 
                     <?php
-
+                        
 
                     ?>
                     
