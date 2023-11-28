@@ -87,6 +87,26 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             width: 80%;
         }
 
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            width: 100%;
+            margin-top: 2%;
+        }
+
+        table th{
+            background-color: #303030;
+            padding: 1%;
+            color: white;
+            border-left: 2px solid white;
+        }
+
+        table td {
+            padding: 1rem;
+            border: 2px solid #212121;
+        }
+
+
     </style>
 
 </head>
@@ -107,6 +127,10 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
     <div class="main">
         <h1>CURRENT INVENTORY</h1>
         <hr />
+
+        <div class="search">
+            
+        </div>
 
     <?php
         $query = 'SELECT * FROM INVENTORY;';

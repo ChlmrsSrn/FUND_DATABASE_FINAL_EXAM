@@ -213,12 +213,34 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             </form>
         </div>
     </div>
+
+    <?php
+        $productName = mysqli_real_escape_string($conn, $_POST['productName']);
+        $brand = mysqli_real_escape_string($conn, $_POST['brand']);
+        $description = mysqli_real_escape_string($conn, $_POST['description']);
+        $category = mysqli_real_escape_string($conn, $_POST['category']);
+        $price = mysqli_real_escape_string($conn, $_POST['price']);
+        $stock_quantity = mysqli_real_escape_string($conn, $_POST['stock_quantity']);
+        $status = mysqli_real_escape_string($conn, $_POST['status']);
+
+        if (empty($productName) || empty($brand) || empty($description) || empty($category) || empty($price) || empty($stock_quantity) || empty($status)) {
+                echo "Please fill out all fields.";
+        } else {
+
+            $sql = "INSERT INTO INVENTORY (productname, brand, description, category, price, stock_quantity, status) 
+            VALUES ('$productName', '$brand', '$description', '$category', '$price', '$stock_quantity', '$status');";
+
+            $result = mysqli_query($conn, $sql);
+
+            if ($result) {
+                echo '<script>alert("Added Succesfully")</script>';
+            } else {
+                echo '<script>alert("Failed: Contact Administrator")</script>' . mysqli_error($conn);
+            }
+        }
+        mysqli_close($conn);
+    ?>
     
-
-
-
-
-
     <script>
         function clearValues() {
             const form = document.getElementById('myForm');

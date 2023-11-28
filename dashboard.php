@@ -109,6 +109,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
         .grid-item p{
             font-size: 1.2em;
             font-weight: 700;
+            color: white;
         }
 
         .grid-item:nth-of-type(1){
@@ -131,6 +132,10 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             font-size: 8em;
             position: relative;
             left: 65%;
+        }
+
+        .material-symbols-outlined{
+            opacity: 0.3
         }
 
     </style>
@@ -160,6 +165,12 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 
                 <div class="background-icon">
                     <span class="material-symbols-outlined">inventory</span>
+
+                    <?php
+
+
+                    ?>
+                    
                 </div>
             </div>
 
