@@ -1,10 +1,12 @@
 <?php
 session_start();
- 
+
 if (!isset($_SESSION["username"])) {
     header("Location: index.php");
     exit();
 }
+
+$conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 ?>
 
 <!DOCTYPE html>
@@ -105,6 +107,41 @@ if (!isset($_SESSION["username"])) {
     <div class="main">
         <h1>CURRENT INVENTORY</h1>
         <hr />
+
+    <?php
+        $query = 'SELECT * FROM INVENTORY;';
+
+        $result = mysqli_query($conn, $query);
+
+            echo "<table>";
+            echo "<tr>";
+            echo "<th>PRODUCT ID</th>";
+            echo "<th>PRODUCT NAME</th>";
+            echo "<th>BRAND</th>";
+            echo "<th>DESCRIPTION</th>";
+            echo "<th>CATEGORY</th>";
+            echo "<th>PRICE</th>";
+            echo "<th>STOCK QUANTITY</th>";
+            echo "<th>STATUS</th>";
+            echo "</tr>";
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>" . $row['productID'] . "</td>";
+                echo "<td>" . $row['productName'] . "</td>";
+                echo "<td>" . $row['brand'] . "</td>";
+                echo "<td>" . $row['description'] . "</td>";
+                echo "<td>" . $row['category'] . "</td>";
+                echo "<td>" . $row['price'] . "</td>";
+                echo "<td>" . $row['stock_quantity'] . "</td>";
+                echo "<td>" . $row['status'] . "</td>";
+                echo "</tr>";
+                
+            }
+
+            echo "</table>";
+    ?>
+
     </div>
     
 </body>

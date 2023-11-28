@@ -5,6 +5,8 @@ if (!isset($_SESSION["username"])) {
     header("Location: index.php");
     exit();
 }
+
+$conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 ?>
 
 <!DOCTYPE html>
@@ -85,6 +87,65 @@ if (!isset($_SESSION["username"])) {
             width: 80%;
         }
 
+        .btn{
+            text-decoration: none;
+            width: 100%;
+            background-color: black;
+            color: black;
+            margin: 1% auto;
+            padding: 2%;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            border: .1em solid black;
+
+            background: linear-gradient(to right, #70C1B3, #247B9F, white 60%);
+            background-size: 200% 100%;
+            background-position: right bottom;
+            transition: all .3s ease-out;
+        }
+
+        .btn:hover {
+            background-position: left bottom;
+            color: white;
+        }
+
+        .add-card{
+            width: 50%;
+            margin-top: 1%;
+            margin-left: 25%;
+            border: 3px solid #212121;
+            border-radius: 10px;
+            padding: 2%;
+        }
+
+        .add-card p{
+            font-weight: 700;
+            margin-bottom: 2%;
+            font-size: 2em;
+        }
+
+        .add-card hr{
+            margin-bottom: 2%;
+            border-top: 5px solid #212121;
+            border-radius: 10px;
+        }
+
+        .add-card input{
+            width: 100%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+            font-size: 1.5em;
+            font-weight: 500;
+            padding: 1%;
+        }
+
+        .add-card label{
+            font-weight: 700;
+        }
+
     </style>
 
 </head>
@@ -105,7 +166,67 @@ if (!isset($_SESSION["username"])) {
     <div class="main">
         <h1>ADD INVENTORY</h1>
         <hr />
+
+        <div class="add-card">
+
+            <p>Insert Inventory</p>
+            <hr />
+            <form id="myForm" action="add.php" method="POST">
+                <div class="grid-container">
+                    <label>Product Name</label>
+                    <input type="text" name="productName" />
+                </div>
+                
+                <div class="grid-container">
+                    <label>Brand</label>
+                    <input type="text" name="brand" />
+                </div>
+                
+                <div class="grid-container">
+                    <label>Description</label>
+                    <input type="text" name="description"/>
+                </div>
+                
+                <div class="grid-container">
+                    <label>Category</label>
+                    <input type="text" name="category" />
+                </div>
+
+                <div class="grid-container">
+                    <label>Price</label>
+                    <input type="number" step="0.01" name="price" />
+                </div>
+                
+                <div class="grid-container">
+                    <label>Stock Quantity</label>
+                    <input type="number" name="stock_quantity" />  
+                </div>
+                
+
+                <div class="grid-container">
+                    <label>Status</label>
+                    <input type="text" name="status" />
+                </div>
+                
+                <button class="btn">RESET</button>
+                <button class="btn" value="Submit" name="submit">SUBMIT</button>
+            </form>
+        </div>
     </div>
     
+
+
+
+
+
+    <script>
+        function clearValues() {
+            const form = document.getElementById('myForm');
+            const inputs = form.querySelectorAll('input[type="text"], input[type="number"] textarea');
+            inputs.forEach(input => {
+                input.value = '';
+            });
+        }
+    </script>
 </body>
 </html>

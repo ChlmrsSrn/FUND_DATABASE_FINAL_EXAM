@@ -5,6 +5,8 @@ if (!isset($_SESSION["username"])) {
     header("Location: index.php");
     exit();
 }
+
+$conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 ?>
 
 <!DOCTYPE html>
@@ -105,6 +107,39 @@ if (!isset($_SESSION["username"])) {
     <div class="main">
         <h1>ORDER HISTORY</h1>
         <hr />
+
+
+        <?php
+        $query = 'SELECT * FROM ORDER_HISTORY;';
+
+        $result = mysqli_query($conn, $query);
+
+            echo "<table>";
+            echo "<tr>";
+            echo "<th>ORDER ID</th>";
+            echo "<th>ORDER DATE</th>";
+            echo "<th>CUSTOMER NAME</th>";
+            echo "<th>PRODUCT NAME</th>";
+            echo "<th>QUANTITY</th>";
+            echo "<th>PAYMENT METHOD</th>";
+            echo "<th>SHIPPING ADDRESS</th>";
+            echo "</tr>";
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>" . $row['orderID'] . "</td>";
+                echo "<td>" . $row['orderDate'] . "</td>";
+                echo "<td>" . $row['customerName'] . "</td>";
+                echo "<td>" . $row['productName'] . "</td>";
+                echo "<td>" . $row['quantity'] . "</td>";
+                echo "<td>" . $row['paymentMethod'] . "</td>";
+                echo "<td>" . $row['shippingAddress'] . "</td>";
+                echo "</tr>";
+                
+            }
+
+            echo "</table>";
+    ?>
     </div>
     
 </body>

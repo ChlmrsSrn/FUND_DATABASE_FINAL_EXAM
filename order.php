@@ -90,6 +90,18 @@ if (!isset($_SESSION["username"])) {
             margin-left: 30%;
         }
 
+        .order-card p{
+            font-weight: 700;
+            font-size: 2em;
+            margin-bottom: 2%;
+        }
+
+        .order-card hr{
+            margin-bottom: 2%;
+            border-top: 5px solid #212121;
+            border-radius: 10px;
+        }
+
         form{
             padding: 2%;
             width: 60%;
@@ -107,6 +119,9 @@ if (!isset($_SESSION["username"])) {
             width: 100%;
             margin-top: 2%;
             margin-bottom: 2%;
+            font-size: 1.5em;
+            font-weight: 500;
+            padding: 2%;
         }
 
         table{
@@ -128,7 +143,7 @@ if (!isset($_SESSION["username"])) {
             cursor: pointer;
             border: .1em solid black;
 
-            background: linear-gradient(to right, #027373, #04BFAD, white 50%);
+            background: linear-gradient(to right, #70C1B3, #247B9F, white 60%);
             background-size: 200% 100%;
             background-position: right bottom;
             transition: all .3s ease-out;
@@ -164,6 +179,8 @@ if (!isset($_SESSION["username"])) {
 
             <form action="order.php" method="POST">
                 <p class="section">Order Slip</p>
+                <hr />
+
                 <label>Date Today</label>
                 <input type="date" name="currentDate" />
 
