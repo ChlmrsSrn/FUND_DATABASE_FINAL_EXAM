@@ -14,7 +14,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="x-icon/png" href="" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />    <link rel="icon" type="x-icon/png" href="" />
     <title>Inventory</title>
 
     <style>
@@ -129,13 +129,20 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
         <hr />
 
         <div class="search">
-            
+            <form action="current.php" method="POST">
+                <input type="text" name="search-query" /><button type="submit" value="Submit"><span class="material-symbols-outlined">Search</span></button>
+            </form>
         </div>
 
-    <?php
-        $query = 'SELECT * FROM INVENTORY;';
+        <?php
+            if (isset($_POST['search-query'])) {
+                $searchQuery = mysqli_real_escape_string($conn, $_POST['search-query']);
+                $query = "SELECT * FROM INVENTORY WHERE productName LIKE '%$searchQuery%';";
+            } else {
+                $query = 'SELECT * FROM INVENTORY;';
+            }
 
-        $result = mysqli_query($conn, $query);
+            $result = mysqli_query($conn, $query);
 
             echo "<table>";
             echo "<tr>";
@@ -160,12 +167,10 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                 echo "<td>" . $row['stock_quantity'] . "</td>";
                 echo "<td>" . $row['status'] . "</td>";
                 echo "</tr>";
-                
             }
 
             echo "</table>";
-    ?>
-
+        ?>
     </div>
     
 </body>

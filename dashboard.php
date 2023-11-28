@@ -18,6 +18,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="icon" type="x-icon/png" href="" />
     <title>Inventory</title>
 
@@ -223,7 +224,6 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             </div>
 
         </div>
-
     </div>
     
 </body>
