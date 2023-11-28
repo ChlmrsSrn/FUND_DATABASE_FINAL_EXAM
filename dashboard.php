@@ -167,8 +167,11 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                     <span class="material-symbols-outlined">inventory</span>
 
                     <?php
-                        
+                        $sql = "SELECT COUNT(PRODUCTID) FROM INVENTORY;";
 
+                        $result = mysqli_query($conn, $sql);
+
+                        
                     ?>
                     
                 </div>
