@@ -14,7 +14,8 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />    <link rel="icon" type="x-icon/png" href="" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />    
+    <link rel="icon" type="x-icon/png" href="" />
     <title>Inventory</title>
 
     <style>
@@ -106,7 +107,16 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             border: 2px solid #212121;
         }
 
-
+        input{
+            margin: 0 auto;
+            width: 30%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+            font-size: 1.5em;
+            font-weight: 500;
+            padding: 0;
+        }
+        
     </style>
 
 </head>
@@ -137,7 +147,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
         <?php
             if (isset($_POST['search-query'])) {
                 $searchQuery = mysqli_real_escape_string($conn, $_POST['search-query']);
-                $query = "SELECT * FROM INVENTORY WHERE productName OR category OR brand LIKE '%$searchQuery%';";
+                $query = "SELECT * FROM INVENTORY WHERE productName LIKE '%$searchQuery%' OR brand LIKE '%$searchQuery%' OR category LIKE '%$searchQuery%';";
             } else {
                 $query = 'SELECT * FROM INVENTORY;';
             }

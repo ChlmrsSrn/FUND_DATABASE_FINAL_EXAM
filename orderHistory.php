@@ -14,6 +14,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />    
     <link rel="icon" type="x-icon/png" href="" />
     <title>Inventory</title>
 
@@ -106,6 +107,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             border: 2px solid #212121;
         }
 
+        
     </style>
 
 </head>
@@ -129,7 +131,8 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 
         <div class="search">
             <form action="orderHistory.php" method="POST">
-                <input type="text" name="search-query" /><button type="submit" value="Submit"><span class="material-symbols-outlined">Search</span></button>
+                <input type="text" name="search-query" />
+                <button type="submit" value="Submit"><span class="material-symbols-outlined">Search</span></button>
             </form>
         </div>
 
