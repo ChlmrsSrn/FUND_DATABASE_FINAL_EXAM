@@ -127,9 +127,19 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
         <h1>ORDER HISTORY</h1>
         <hr />
 
+        <div class="search">
+            <form action="orderHistory.php" method="POST">
+                <input type="text" name="search-query" /><button type="submit" value="Submit"><span class="material-symbols-outlined">Search</span></button>
+            </form>
+        </div>
 
         <?php
-        $query = 'SELECT * FROM ORDER_HISTORY;';
+         if (isset($_POST['search-query'])) {
+            $searchQuery = mysqli_real_escape_string($conn, $_POST['search-query']);
+            $query = "SELECT * FROM ORDER_HISTORY WHERE orderID IN ($searchQuery)";
+        } else {
+            $query = 'SELECT * FROM ORDER_HISTORY;';
+        }
 
         $result = mysqli_query($conn, $query);
 
@@ -144,7 +154,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             echo "<th>SHIPPING ADDRESS</th>";
             echo "</tr>";
 
-            while ($row = mysqli_fetch_assoc($result)) {
+            while ($row = @mysqli_fetch_assoc($result)) {
                 echo "<tr>";
                 echo "<td>" . $row['orderID'] . "</td>";
                 echo "<td>" . $row['orderDate'] . "</td>";

@@ -94,7 +94,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 
         .grid-container{
             display: grid;
-            grid-template-columns: 40% 40%;
+            grid-template-columns: 30% 30% 30%;
             column-gap: 3%;
             row-gap: 7%;
             margin-top: 3%;
@@ -104,7 +104,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             border: 3px solid #303030;
             border-radius: 10px;
             height: 15em;
-            padding: 2%;
+            padding: 3%;
         }
         
         .grid-item p{
@@ -122,11 +122,19 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
         }
         
         .grid-item:nth-of-type(3){
-            background-color: #FBB305;   
+            background-color: #FBB305;
         }
 
         .grid-item:nth-of-type(4){
-            background-color: #EA4335;   
+            background-color: #EA4335;
+            grid-column: span 3;
+            grid-row: span 2;
+        }
+
+        .grid-item:nth-of-type(4) .material-symbols-outlined{
+            font-size: 8em;
+            position: relative;
+            left: 75%;
         }
 
         .material-symbols-outlined{
@@ -136,7 +144,50 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
         }
 
         .material-symbols-outlined{
-            opacity: 0.3
+            opacity: 0.3;
+        }
+
+        .grid-item:nth-of-type(1) .data, .grid-item:nth-of-type(2) .data, .grid-item:nth-of-type(3) .data{
+            margin-top: -22%;
+            margin-left: 10%;
+            font-size: 5.5em;
+        }
+
+        .grid-item:nth-of-type(4){
+            padding: 2%;
+        }
+
+        .grid-item:nth-of-type(4) .data{
+            margin-top: -11%;
+        }
+
+        table{
+            color: white;
+            font-weight: 500;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        table th{
+            width: 70%;
+            padding: 1%;
+        }
+        
+        table th:first-of-type{
+            border-right: 2px solid white;
+        }
+
+        table td{
+            text-align: center;
+            padding: 1%;
+            font-weight: 800;
+            border-top: 2px solid white;
+        }
+
+        @media only screen and (max-width: 1440px) {
+            .grid-item:nth-of-type(4) .data{
+                margin-top: -13%;
+            }
         }
 
     </style>
@@ -175,7 +226,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                         $row = mysqli_fetch_assoc($result);
                         $stockQuantity = $row['total_stock'];
                         
-                        echo "<p>" .$stockQuantity . "</p>";
+                        echo "<p class='data'>" .$stockQuantity . "</p>";
                     ?>
                     
                 </div>
@@ -189,22 +240,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                         $sql = "SELECT COUNT(PRODUCTID) FROM INVENTORY;";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
-                        echo "<p>" . $row['COUNT(PRODUCTID)'] . "</p>";
-                    ?>
-                </div>
-            </div>
-
-            <div class="grid-item">
-                <p>LOW ON STOCK</p>
-                <div class="background-icon">
-                    <span class="material-symbols-outlined">disabled_by_default</span>
-                    <?php
-                        $lowStockCount = 10;
-                        $sql = "SELECT productName, stock_quantity FROM INVENTORY WHERE stock_quantity < $lowStockCount;";
-                        $result = mysqli_query($conn, $sql);
-                        while ($row = @mysqli_fetch_assoc($result)) {
-                            echo "<p>" . $row['productName'] . ", Stock: " . $row['stock_quantity'] . "</p>";
-                        } 
+                        echo "<p class='data'>" . $row['COUNT(PRODUCTID)'] . "</p>";
                     ?>
                 </div>
             </div>
@@ -217,11 +253,41 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                         $sql = "SELECT COUNT(ORDERID) FROM ORDER_HISTORY;";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
-                        echo "<p>" . $row['COUNT(ORDERID)'] . "</p>";
+                        echo "<p class='data'>" . $row['COUNT(ORDERID)'] . "</p>";
                     ?>
 
                 </div>
             </div>
+
+            <div class="grid-item">
+                <p>LOW ON STOCK</p>
+                <div class="background-icon">
+                    <span class="material-symbols-outlined">disabled_by_default</span>
+                    <div class="data">
+                    <?php
+                        $lowStockCount = 10;
+                        $sql = "SELECT productName, stock_quantity FROM INVENTORY WHERE stock_quantity < $lowStockCount;";
+                        $result = mysqli_query($conn, $sql);
+
+                        echo "<table>";
+                        echo "<tr><th>PRODUCT NAME</th><th>STOCK COUNT</th></tr>";
+
+                        while ($row = @mysqli_fetch_assoc($result)) {
+                            echo "<tr>";
+                            echo "<td>" . $row['productName'] . "</td>";
+                            echo "<td>" . $row['stock_quantity'] . "</td>";
+                            echo "</tr>";
+                        }
+
+                    echo "</table>";
+                    ?>
+                    </div>
+                </div>
+            </div>
+
+
+
+
 
         </div>
     </div>
