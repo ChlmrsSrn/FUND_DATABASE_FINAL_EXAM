@@ -107,16 +107,43 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             border: 2px solid #212121;
         }
 
-        input{
-            margin: 0 auto;
-            width: 30%;
-            margin-top: 2%;
-            margin-bottom: 2%;
-            font-size: 1.5em;
-            font-weight: 500;
-            padding: 0;
+        .search {
+            width: 50%;
+            border: 2px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            margin: 2% auto;
         }
-        
+
+        .search form{
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .search input{
+            flex: 1;
+            border: 0;
+            outline: none;
+            padding: 10px 10px;
+            background: white;
+            margin-left: 15px;
+            font-size: 1.5em;
+        }
+
+        .search button{
+            width: 25px;
+            border: 0;
+            background: white;
+            margin-right: 15px;
+        }
+
+        .search button:hover{
+            background-color: grey;
+            border-radius: 50px;
+        }
     </style>
 
 </head>
@@ -140,7 +167,8 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 
         <div class="search">
             <form action="current.php" method="POST">
-                <input type="text" name="search-query" /><button type="submit" value="Submit"><span class="material-symbols-outlined">Search</span></button>
+                <input type="text" name="search-query" />
+                <button type="submit" value="Submit"><span class="material-symbols-outlined">Search</span></button>
             </form>
         </div>
 
@@ -166,7 +194,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             echo "<th>STATUS</th>";
             echo "</tr>";
 
-            while ($row = mysqli_fetch_assoc($result)) {
+            while ($row = @mysqli_fetch_assoc($result)) {
                 echo "<tr>";
                 echo "<td>" . $row['productID'] . "</td>";
                 echo "<td>" . $row['productName'] . "</td>";

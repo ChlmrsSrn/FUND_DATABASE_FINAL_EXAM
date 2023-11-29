@@ -87,6 +87,65 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             width: 80%;
         }
 
+        .btn{
+            text-decoration: none;
+            width: 100%;
+            background-color: black;
+            color: black;
+            margin: 1% auto;
+            padding: 2%;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            border: .1em solid black;
+
+            background: linear-gradient(to right, #70C1B3, #247B9F, white 60%);
+            background-size: 200% 100%;
+            background-position: right bottom;
+            transition: all .3s ease-out;
+        }
+
+        .btn:hover {
+            background-position: left bottom;
+            color: white;
+        }
+
+        .add-card{
+            width: 50%;
+            margin-top: 1%;
+            margin-left: 25%;
+            border: 3px solid #212121;
+            border-radius: 10px;
+            padding: 2%;
+        }
+
+        .add-card p{
+            font-weight: 700;
+            margin-bottom: 2%;
+            font-size: 2em;
+        }
+
+        .add-card hr{
+            margin-bottom: 2%;
+            border-top: 5px solid #212121;
+            border-radius: 10px;
+        }
+
+        .add-card input{
+            width: 100%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+            font-size: 1.5em;
+            font-weight: 500;
+            padding: 1%;
+        }
+
+        .add-card label{
+            font-weight: 700;
+        }
+
     </style>
 
 </head>
@@ -105,9 +164,50 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
     </div>
 
     <div class="main">
-        <h1>REMOVE INVENTORY</h1>
-        <hr />
+            <h1>REMOVE INVENTORY</h1>
+            <hr />
+
+            <div class="add-card">
+
+            <p><span style="color: red;">Delete</span> Inventory</p>
+            <hr />
+            <form id="myForm" action="remove.php" method="POST">
+                <div class="grid-container">
+                    <label>Product ID</label>
+                    <input type="text" name="productID" />
+                </div>
+                                
+                <button class="btn">RESET</button>
+                <button class="btn" onclick="clicked()" value="Submit" name="submit">SUBMIT</button>
+            </form>
+        </div>
     </div>
-    
+
+    <?php
+        if (isset($_POST['productID'])) {
+            $productID = $_POST['productID'];
+            $query = "DELETE FROM INVENTORY WHERE productID = $productID";
+
+            if (mysqli_query($conn, $query)) {
+                if (mysqli_affected_rows($conn) > 0) {
+                    echo "<h2><center>INVENTORY DELETED SUCCESSFULLY</center></h2>";
+                } else {
+                    echo "<h2><center>NO RECORD FOUND FOR DELETION</center></h2>";
+                }
+            } else {
+                echo "<h2><center>ERROR DELETING RECORD: CONTACT ADMINISTRATOR OR TRY AGAIN</center></h2> ";
+            }
+        }
+?>
+
+<script>
+    function clicked() {
+       if (confirm('ARE YOU SURE?')) {
+           yourformelement.submit();
+       } else {
+           return false;
+       }
+    }
+</script>
 </body>
 </html>

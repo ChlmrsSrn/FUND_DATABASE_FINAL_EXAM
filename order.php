@@ -199,8 +199,8 @@ if (!isset($_SESSION["username"])) {
                         <td><input type="text" name="productID"></td>
                         <td><input type="text" name="productName"></td>
                         <td><input type="int" name="productQuantity"></td>
-                        <td><input type="text" name="productName"></td>
-                        <td><input type="text" name="productName"></td>
+                        <td><input type="text" name="price"></td>
+                        <td><input type="text" name="total_price"></td>
                     </tr>
                 </table>
 

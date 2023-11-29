@@ -107,7 +107,44 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             border: 2px solid #212121;
         }
 
-        
+        .search {
+            width: 50%;
+            border: 2px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            margin: 2% auto;
+        }
+
+        .search form{
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .search input{
+            flex: 1;
+            border: 0;
+            outline: none;
+            padding: 10px 10px;
+            background: white;
+            margin-left: 15px;
+            font-size: 1.5em;
+        }
+
+        .search button{
+            width: 25px;
+            border: 0;
+            background: white;
+            margin-right: 15px;
+        }
+
+        .search button:hover{
+            background-color: grey;
+            border-radius: 50px;
+        }
+
     </style>
 
 </head>
