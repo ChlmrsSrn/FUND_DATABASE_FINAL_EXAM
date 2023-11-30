@@ -91,7 +91,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
         table {
             border-collapse: collapse;
             margin: 0 auto;
-            width: 100%;
+            width: 90%;
             margin-top: 2%;
         }
 
@@ -192,6 +192,10 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             echo "<th>QUANTITY</th>";
             echo "<th>PAYMENT METHOD</th>";
             echo "<th>SHIPPING ADDRESS</th>";
+            echo "<th>RECEIVER NAME</th>";
+            echo "<th>ZIP CODE</th>";
+            echo "<th>CONTACT NUMBER</th>";
+            echo "<th>REMARKS</th>";
             echo "</tr>";
 
             while ($row = @mysqli_fetch_assoc($result)) {
@@ -203,6 +207,10 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                 echo "<td>" . $row['quantity'] . "</td>";
                 echo "<td>" . $row['paymentMethod'] . "</td>";
                 echo "<td>" . $row['shippingAddress'] . "</td>";
+                echo "<td>" . $row['receiverName'] . "</td>";
+                echo "<td>" . $row['zipCode'] . "</td>";
+                echo "<td>" . $row['contactNumber'] . "</td>";
+                echo "<td>" . $row['remarks'] . "</td>";
                 echo "</tr>";
                 
             }
