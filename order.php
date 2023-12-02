@@ -5,6 +5,8 @@ if (!isset($_SESSION["username"])) {
     header("Location: index.php");
     exit();
 }
+
+$conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +14,7 @@ if (!isset($_SESSION["username"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="icon" type="x-icon/png" href="" />
     <title>Inventory</title>
 
@@ -124,7 +127,7 @@ if (!isset($_SESSION["username"])) {
             padding: 2%;
         }
 
-        table{
+        table #products_table{
             border-collapse: collapse;
             margin: 0 auto;
         }
@@ -153,7 +156,26 @@ if (!isset($_SESSION["username"])) {
             background-position: left bottom;
             color: white;
         }
-        
+
+        #selection {
+            border-collapse: collapse;
+            margin: 0 auto;
+            width: 80%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+
+        #selection th{
+            background-color: #303030;
+            padding: 1%;
+            color: white;
+            border-left: 2px solid white;
+        }
+
+        #selection td {
+            padding: 1rem;
+            border: 2px solid #212121;
+        }
     </style>
 
 </head>
@@ -182,7 +204,7 @@ if (!isset($_SESSION["username"])) {
                 <hr />
 
                 <label>Date Today</label>
-                <input type="date" name="currentDate" />
+                <input type="date" name="currentDate" value="<?php echo date('Y-m-d'); ?>" />
 
                 <label>Customer Name / Requestor</label>
                 <input type="text" name="customerName" required />
@@ -192,24 +214,19 @@ if (!isset($_SESSION["username"])) {
                         <th>Product ID</th>
                         <th>Product Name</th>
                         <th>Quantity</th>
-                        <th>Unit Cost</th>
-                        <th>Total Cost</th>
                     </tr>
                     <tr>
                         <td><input type="text" name="productID"></td>
                         <td><input type="text" name="productName"></td>
                         <td><input type="int" name="productQuantity"></td>
-                        <td><input type="text" name="price"></td>
-                        <td><input type="text" name="total_price"></td>
-                    </tr>
                 </table>
 
                 <button type="button" class="add-item-button btn" onclick="addRow()">Add Product</button>
 
                 <label>Mode of Payment</label>
                 <select name="mop">
-                    <option>Card</option>
-                    <option>Cash on Delivery</option>
+                    <option value="Card">Card</option>
+                    <option value="Cash On Delivery">Cash on Delivery</option>
                 </select>
 
                 <p class="section">Shipping Information</p>
@@ -233,9 +250,71 @@ if (!isset($_SESSION["username"])) {
                 <button class="btn" value="Submit" name="submit">SUBMIT</button>
 
             </form>
-
         </div>
+
+        <div class="curr-table">
+
+            <?php
+                $query = 'SELECT * FROM INVENTORY WHERE STATUS = "Active";';
+                $result = mysqli_query($conn, $query);
+    
+                echo "<table id='selection'>";
+                echo "<tr>";
+                echo "<th>PRODUCT ID</th>";
+                echo "<th>PRODUCT NAME</th>";
+                echo "<th>BRAND</th>";
+                echo "<th>DESCRIPTION</th>";
+                echo "<th>CATEGORY</th>";
+                echo "<th>PRICE</th>";
+                echo "<th>STOCK QUANTITY</th>";
+                echo "<th>STATUS</th>";
+                echo "</tr>";
+    
+                while ($row = @mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    echo "<td>" . $row['productID'] . "</td>";
+                    echo "<td>" . $row['productName'] . "</td>";
+                    echo "<td>" . $row['brand'] . "</td>";
+                    echo "<td>" . $row['description'] . "</td>";
+                    echo "<td>" . $row['category'] . "</td>";
+                    echo "<td>" . $row['price'] . "</td>";
+                    echo "<td>" . $row['stock_quantity'] . "</td>";
+                    echo "<td>" . $row['status'] . "</td>";
+                    echo "</tr>";
+                }
+    
+                echo "</table>";
+            ?>
+        </div>
+
     </div>
+
+    <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+       
+            $currentDate = $_POST["currentDate"];
+            $customerName = $_POST["customerName"];
+            $productId = $_POST["productID[]"];
+            $productName = $_POST["productName[]"];
+            $quantity = $_POST["productQuantity[]"];
+            $paymentMethod = $_POST["mop"];
+            $receiverName = $_POST["order-reciever"];
+            $shippingAddress = $_POST["shipping-address"];
+            $zipCode = $_POST["zip"];
+            $contactNumber = $_POST["contact-number"];
+            $remarks = $_POST["remarks"];
+
+            $insertQuery = "INSERT INTO order_history (currentDate, customerName, productID, productName, quantity, paymentMethod, receiverName, shippingAddress, zipCode, contactNumber, remarks) 
+            VALUES ('$currentDate', '$customerName', '$productId', '$productName', '$quantity', '$paymentMethod', '$receiverName', '$shippingAddress', '$zipCode', '$contactNumber', '$remarks');";
+            
+            if (mysqli_query($conn, $insertQuery)) {
+                echo "<script>alert('Order data inserted successfully.')</script>";
+            } else {
+                echo "<script>alert('Order Failed Contact Administrator.')</script>" . mysqli_error($conn);
+            }
+        }
+
+    ?>
 
     <script>
         function addRow() {
