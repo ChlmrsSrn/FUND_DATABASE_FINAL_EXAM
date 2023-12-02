@@ -330,8 +330,6 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             cell1.innerHTML = '<input type="text" name="productName[]">';
             cell2.innerHTML = '<input type="text" name="productName[]">';
             cell3.innerHTML = '<input type="number" name="productQuantity[]">';
-            cell4.innerHTML = '<input type="text" name="unitCost[]">';
-            cell5.innerHTML = '<input type="text" name="totalCost[]">';
             cell6.innerHTML = '<button type="button" onclick="removeRow(this)">Remove</button>';
         }
 
