@@ -221,8 +221,6 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                         <td><input type="int" name="productQuantity"></td>
                 </table>
 
-                <button type="button" class="add-item-button btn" onclick="addRow()">Add Product</button>
-
                 <label>Mode of Payment</label>
                 <select name="mop">
                     <option value="Card">Card</option>
@@ -246,7 +244,6 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                 <label>Remarks</label>
                 <textarea name="remarks"></textarea>
 
-                <div class="btn">REVIEW ORDER</div>
                 <button class="btn" value="Submit" name="submit">SUBMIT</button>
 
             </form>
@@ -303,6 +300,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             $zipCode = $_POST["zip"];
             $contactNumber = $_POST["contact-number"];
             $remarks = $_POST["remarks"];
+
 
             $insertQuery = "INSERT INTO order_history (currentDate, customerName, productID, productName, quantity, paymentMethod, receiverName, shippingAddress, zipCode, contactNumber, remarks) 
             VALUES ('$currentDate', '$customerName', '$productId', '$productName', '$quantity', '$paymentMethod', '$receiverName', '$shippingAddress', '$zipCode', '$contactNumber', '$remarks');";
