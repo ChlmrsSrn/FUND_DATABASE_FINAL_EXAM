@@ -130,6 +130,46 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             border-color: #007bff;
             box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
+
+        .form-edit{
+            border: 2px solid black;
+            padding: 2%;
+            width: 70%;
+            margin: 0 auto;
+            border-radius: 20px;
+            margin-top: 2%;
+        }
+
+        .form-control{
+            font-weight: 500;
+        }
+
+        .btn{
+            text-decoration: none;
+            width: 100%;
+            background-color: black;
+            color: black;
+            margin: 1% auto;
+            padding: 2%;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 700;
+            cursor: pointer;
+            border: .1em solid black;
+
+            background: linear-gradient(to right, #70C1B3, #247B9F, white 60%);
+            background-size: 200% 100%;
+            background-position: right bottom;
+            transition: all .3s ease-out;
+        }
+
+        .btn:hover {
+            background-position: left bottom;
+            color: white;
+        }
+
+
     </style>
 
 </head>
@@ -149,6 +189,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
     </div>
 
     <div class="main">
+
         <?php
         if (isset($_GET['productID'])) {
             $productID = $_GET['productID'];
@@ -187,7 +228,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             } else {
                 echo "
                     <script>
-                        window.alert('Successfully Edited');
+                        window.alert('Successfully Adjusted');
                         window.location.href = 'adjust.php';
                     </script>";
 
@@ -196,43 +237,45 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
         }
         ?>
 
-        <h2>Edit Product</h2>
+        <h2>ADJUST STOCK</h2>
+        <hr />
 
-        <form action="update.php" method="POST">
+        <form class="form-edit" action="update.php" method="POST">
+            <p></p>
             <div class="form-group">
-                <label for="productID"><b>productID</b></label>
+                <label for="productID"><b>Product ID</b></label>
                 <input type="text" name="productID" class="form-control" value="<?php echo $row['productID'] ?>"
                     readonly>
             </div>
             <div class="form-group">
-                <label for="productName">productName</label>
+                <label for="productName">Product Name</label>
                 <input type="text" name="productName" class="form-control" value="<?php echo $row['productName'] ?>"
                     required>
             </div>
             <div class="form-group">
-                <label for="brand">brand</label>
+                <label for="brand">Brand</label>
                 <input type="text" name="brand" class="form-control" value="<?php echo $row['brand'] ?>" required>
             </div>
             <div class="form-group">
-                <label for="descriptioin">description</label>
+                <label for="descriptioin">Description</label>
                 <input type="text" name="description" class="form-control" value="<?php echo $row['description'] ?>"
                     required>
             </div>
             <div class="form-group">
-                <label for="category">category</label>
+                <label for="category">Category</label>
                 <input type="text" name="category" class="form-control" value="<?php echo $row['category'] ?>" required>
             </div>
             <div class="form-group">
-                <label for="price">price</label>
+                <label for="price">Price</label>
                 <input type="text" name="price" class="form-control" value="<?php echo $row['price'] ?>" required>
             </div>
             <div class="form-group">
-                <label for="stock_quantity">stock_quantity</label>
+                <label for="stock_quantity">Stock Quantity</label>
                 <input type="text" name="stock_quantity" class="form-control"
                     value="<?php echo $row['stock_quantity'] ?>" required>
             </div>
             <div class="form-group">
-                <label for="status">status</label>
+                <label for="status">Status</label>
                 <input type="text" name="status" class="form-control" value="<?php echo $row['status'] ?>" required>
             </div>
             <input type="submit" class="btn btn success" name="updatebutton" value="UPDATE"><br>
