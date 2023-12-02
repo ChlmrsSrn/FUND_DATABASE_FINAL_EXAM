@@ -86,6 +86,25 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             padding: 0 1%;
             width: 80%;
         }
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            width: 100%;
+            margin-top: 2%;
+        }
+
+        table th{
+            background-color: #303030;
+            padding: 1%;
+            color: white;
+            border-left: 2px solid white;
+        }
+
+        table td {
+            padding: 1rem;
+            border: 2px solid #212121;
+        }
+       
 
     </style>
 
@@ -107,6 +126,47 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
     <div class="main">
         <h1>ADJUST INVENTORY</h1>
         <hr />
+
+        <?php
+            if (isset($_POST['search-query'])) {
+                $searchQuery = mysqli_real_escape_string($conn, $_POST['search-query']);
+                $query = "SELECT * FROM INVENTORY WHERE productName OR category OR brand LIKE '%$searchQuery%';";
+            } else {
+                $query = 'SELECT * FROM INVENTORY;';
+            }
+
+            $result = mysqli_query($conn, $query);
+
+            echo "<table>";
+            echo "<tr>";
+            echo "<th>PRODUCT ID</th>";
+            echo "<th>PRODUCT NAME</th>";
+            echo "<th>BRAND</th>";
+            echo "<th>DESCRIPTION</th>";
+            echo "<th>CATEGORY</th>";
+            echo "<th>PRICE</th>";
+            echo "<th>STOCK QUANTITY</th>";
+            echo "<th>STATUS</th>";
+            echo "<th></th>";
+            echo "</tr>";
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>" . $row['productID'] . "</td>";
+                echo "<td>" . $row['productName'] . "</td>";
+                echo "<td>" . $row['brand'] . "</td>";
+                echo "<td>" . $row['description'] . "</td>";
+                echo "<td>" . $row['category'] . "</td>";
+                echo "<td>" . $row['price'] . "</td>";
+                echo "<td>" . $row['stock_quantity'] . "</td>";
+                echo "<td>" . $row['status'] . "</td>";
+                echo "<td><a href='update.php?productID=" . $row['productID'] . "'>Adjust</a></td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+            
+        ?>
+
     </div>
     
 </body>

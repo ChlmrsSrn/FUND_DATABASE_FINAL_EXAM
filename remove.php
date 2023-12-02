@@ -164,8 +164,8 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
     </div>
 
     <div class="main">
-            <h1>REMOVE INVENTORY</h1>
-            <hr />
+        <h1>REMOVE INVENTORY</h1>
+        <hr />
 
             <div class="add-card">
 
@@ -182,32 +182,5 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             </form>
         </div>
     </div>
-
-    <?php
-        if (isset($_POST['productID'])) {
-            $productID = $_POST['productID'];
-            $query = "DELETE FROM INVENTORY WHERE productID = $productID";
-
-            if (mysqli_query($conn, $query)) {
-                if (mysqli_affected_rows($conn) > 0) {
-                    echo "<h2><center>INVENTORY DELETED SUCCESSFULLY</center></h2>";
-                } else {
-                    echo "<h2><center>NO RECORD FOUND FOR DELETION</center></h2>";
-                }
-            } else {
-                echo "<h2><center>ERROR DELETING RECORD: CONTACT ADMINISTRATOR OR TRY AGAIN</center></h2> ";
-            }
-        }
-?>
-
-<script>
-    function clicked() {
-       if (confirm('ARE YOU SURE?')) {
-           yourformelement.submit();
-       } else {
-           return false;
-       }
-    }
-</script>
 </body>
 </html>
