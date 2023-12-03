@@ -183,7 +183,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                     <input type="text" name="productID" />
                 </div>
 
-                <button class="btn" value="Submit" name="submit">SUBMIT</button>
+                <button class="btn" onclick="clicked()" value="Submit" name="submit">SUBMIT</button>
             </form>
         </div>
     </div>
