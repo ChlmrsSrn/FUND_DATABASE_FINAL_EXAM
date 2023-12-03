@@ -290,44 +290,56 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
     </div>
 
     <?php
-       if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $currentDate = $_POST["currentDate"];
-        $customerName = $_POST["customerName"];
-        $paymentMethod = $_POST["mop"];
-        $receiverName = $_POST["order-reciever"];
-        $shippingAddress = $_POST["shipping-address"];
-        $zipCode = $_POST["zip"];
-        $contactNumber = $_POST["contact-number"];
-        $remarks = $_POST["remarks"];
-    
-        $concatenatedProducts = "";
-        $totalQuantity = 0;
-    
-        if (isset($_POST["productName"]) && isset($_POST["productQuantity"])) {
-            $productNames = $_POST["productName"];
-            $quantities = $_POST["productQuantity"];
-    
-            for ($i = 0; $i < count($productNames); $i++) {
-                $productName = mysqli_real_escape_string($conn, $productNames[$i]);
-                $quantity = intval($quantities[$i]);
-                $concatenatedProducts .= $productName . ', ';
-                $totalQuantity += $quantity;
-            }
-    
-            $concatenatedProducts = rtrim($concatenatedProducts, ', ');
+session_start();
 
-            $insertQuery = "INSERT INTO order_history (orderDate, customerName, productName, quantity, paymentMethod, receiverName, shippingAddress, zipCode, contactNumber, remarks) 
-                VALUES ('$currentDate', '$customerName', '$concatenatedProducts', '$totalQuantity', '$paymentMethod', '$receiverName', '$shippingAddress', '$zipCode', '$contactNumber', '$remarks')";
-    
-            if (mysqli_query($conn, $insertQuery)) {
-                echo "<script>alert('Order data inserted successfully.')</script>";
-            } else {
-                echo "<script>alert('Order Failed Contact Administrator.')</script>" . mysqli_error($conn);
-            }
+if (!isset($_SESSION["username"])) {
+    header("Location: index.php");
+    exit();
+}
+
+$conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $currentDate = $_POST["currentDate"];
+    $customerName = $_POST["customerName"];
+    $paymentMethod = $_POST["mop"];
+    $receiverName = $_POST["order-reciever"];
+    $shippingAddress = $_POST["shipping-address"];
+    $zipCode = $_POST["zip"];
+    $contactNumber = $_POST["contact-number"];
+    $remarks = $_POST["remarks"];
+
+    $concatenatedProducts = "";
+    $totalQuantity = 0;
+
+    if (isset($_POST["productName"]) && isset($_POST["productQuantity"])) {
+        $productNames = $_POST["productName"];
+        $quantities = $_POST["productQuantity"];
+
+        for ($i = 0; $i < count($productNames); $i++) {
+            $productName = mysqli_real_escape_string($conn, $productNames[$i]);
+            $quantity = intval($quantities[$i]);
+            $concatenatedProducts .= $productName . ', ';
+            $totalQuantity += $quantity;
+
+            $updateQuery = "UPDATE INVENTORY SET stock_quantity = stock_quantity - $quantity WHERE productName = '$productName'";
+            mysqli_query($conn, $updateQuery);
+        }
+
+        $concatenatedProducts = rtrim($concatenatedProducts, ', ');
+
+        $insertQuery = "INSERT INTO order_history (orderDate, customerName, productName, quantity, paymentMethod, receiverName, shippingAddress, zipCode, contactNumber, remarks) 
+            VALUES ('$currentDate', '$customerName', '$concatenatedProducts', '$totalQuantity', '$paymentMethod', '$receiverName', '$shippingAddress', '$zipCode', '$contactNumber', '$remarks')";
+
+        if (mysqli_query($conn, $insertQuery)) {
+            echo "<script>alert('Order data inserted successfully.')</script>";
+        } else {
+            echo "<script>alert('Order Failed Contact Administrator.')</script>" . mysqli_error($conn);
         }
     }
+}
+?>
 
-    ?>
 
 <script>
         function addRow() {
