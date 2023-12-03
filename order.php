@@ -211,15 +211,19 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 
                 <table id="productsTable">
                     <tr>
-                        <th>Product ID</th>
                         <th>Product Name</th>
                         <th>Quantity</th>
+                        <th>Action</th>
                     </tr>
                     <tr>
-                        <td><input type="text" name="productID"></td>
-                        <td><input type="text" name="productName"></td>
-                        <td><input type="int" name="productQuantity"></td>
+                        <td><input type="text" name="productName[]"></td>
+                        <td><input type="number" name="productQuantity[]"></td>
+                        <td><button type="button" onclick="removeRow(this)">Remove</button></td>
+                    </tr>
                 </table>
+
+                <button type="button" onclick="addRow()">Add Product</button>
+
 
                 <label>Mode of Payment</label>
                 <select name="mop">
@@ -288,12 +292,10 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 
     <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-       
             $currentDate = $_POST["currentDate"];
-            $customerName = $_POST["customerName"];
-            $productId = $_POST["productID[]"];
-            $productName = $_POST["productName[]"];
-            $quantity = $_POST["productQuantity[]"];
+            $customerName = $_POST["customerName"];                                                                                      
+            $productName = $_POST["productName"];
+            $quantities = $_POST["productQuantity"];
             $paymentMethod = $_POST["mop"];
             $receiverName = $_POST["order-reciever"];
             $shippingAddress = $_POST["shipping-address"];
@@ -302,9 +304,10 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
             $remarks = $_POST["remarks"];
 
 
-            $insertQuery = "INSERT INTO order_history (currentDate, customerName, productID, productName, quantity, paymentMethod, receiverName, shippingAddress, zipCode, contactNumber, remarks) 
-            VALUES ('$currentDate', '$customerName', '$productId', '$productName', '$quantity', '$paymentMethod', '$receiverName', '$shippingAddress', '$zipCode', '$contactNumber', '$remarks');";
-            
+                
+            $insertQuery = "INSERT INTO order_history (orderDate, customerName, productName, quantity, paymentMethod, receiverName, shippingAddress, zipCode, contactNumber, remarks) 
+                VALUES ('$currentDate', '$customerName', '$productName', '$quantities', '$paymentMethod', '$receiverName', '$shippingAddress', '$zipCode', '$contactNumber', '$remarks')";
+
             if (mysqli_query($conn, $insertQuery)) {
                 echo "<script>alert('Order data inserted successfully.')</script>";
             } else {
@@ -314,21 +317,17 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 
     ?>
 
-    <script>
+<script>
         function addRow() {
             var table = document.getElementById("productsTable");
             var newRow = table.insertRow(table.rows.length);
             var cell1 = newRow.insertCell(0);
             var cell2 = newRow.insertCell(1);
             var cell3 = newRow.insertCell(2);
-            var cell4 = newRow.insertCell(3);
-            var cell5 = newRow.insertCell(4);
-            var cell6 = newRow.insertCell(5);
 
             cell1.innerHTML = '<input type="text" name="productName[]">';
-            cell2.innerHTML = '<input type="text" name="productName[]">';
-            cell3.innerHTML = '<input type="number" name="productQuantity[]">';
-            cell6.innerHTML = '<button type="button" onclick="removeRow(this)">Remove</button>';
+            cell2.innerHTML = '<input type="number" name="productQuantity[]">';
+            cell3.innerHTML = '<button type="button" onclick="removeRow(this)">Remove</button>';
         }
 
         function removeRow(button) {
