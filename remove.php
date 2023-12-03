@@ -114,7 +114,7 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 
         .add-card{
             width: 50%;
-            margin-top: 1%;
+            margin-top: 5%;
             margin-left: 25%;
             border: 3px solid #212121;
             border-radius: 10px;
@@ -144,6 +144,12 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
 
         .add-card label{
             font-weight: 700;
+        }
+
+
+        h2{
+            margin-left: 21%;
+            margin-top: 5%;
         }
 
     </style>
@@ -176,11 +182,36 @@ $conn = @mysqli_connect('localhost', 'admin', 'admin', 'inventory_database');
                     <label>Product ID</label>
                     <input type="text" name="productID" />
                 </div>
-                                
-                <button class="btn">RESET</button>
-                <button class="btn" onclick="clicked()" value="Submit" name="submit">SUBMIT</button>
+
+                <button class="btn" value="Submit" name="submit">SUBMIT</button>
             </form>
         </div>
     </div>
+
+        <?php
+            if (isset($_POST['productID'])) {
+            $productID = $_POST['productID'];
+                $query = "DELETE FROM INVENTORY WHERE productID = $productID";
+                if (mysqli_query($conn, $query)){
+                        if (mysqli_affected_rows($conn) > 0) {
+                            echo "<h2><center>INVENTORY DELETED SUCCESSFULLY</center></h2>";
+                    } else {
+                            echo "<h2><center>NO RECORD FOUND FOR DELETION</center></h2>";
+                        }
+                    } else {
+                        echo "<h2><center>ERROR DELETING RECORD: CONTACT ADMINISTRATOR OR TRY AGAIN</center></h2>";
+                    }
+                }
+        ?>
+
+        <script>
+            function clicked() {
+            if (confirm('ARE YOU SURE?')) {
+                yourformelement.submit();
+            } else {
+                return false;
+            }
+            }
+        </script>
 </body>
 </html>
